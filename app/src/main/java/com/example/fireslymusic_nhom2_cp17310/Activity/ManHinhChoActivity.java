@@ -36,7 +36,7 @@ public class ManHinhChoActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(check.isEmpty()){
-                    startActivity(new Intent(ManHinhChoActivity.this, MainActivity.class));//chuyển vào màn hình đăng nhập
+                    startActivity(new Intent(ManHinhChoActivity.this, ManHinhDangNhapActivity.class));//chuyển vào màn hình đăng nhập
 
                 }
             }
