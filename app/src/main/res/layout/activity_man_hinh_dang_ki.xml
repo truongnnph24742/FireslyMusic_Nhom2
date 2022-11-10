@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login to Your Account"
+        android:text="Create Your Account"
         android:textSize="25dp"
         android:textColor="@color/white"
         android:layout_gravity="center"
@@ -46,22 +46,26 @@
         android:inputType="textPassword"
         android:textColorHint="@color/white"
         />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edit_dangnhap"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:drawableLeft="@drawable/ic_baseline_key_24"
+        android:drawablePadding="20dp"
+        android:hint="repassword"
+        android:inputType="textPassword"
+        android:textColorHint="@color/white"
+        />
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="sign in"
+        android:text="sign up"
         android:padding="15dp"
         android:background="@drawable/custom_button_dangnhap"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forgot the password ?"
-        android:layout_gravity="center"
-        android:textColor="#D980FA"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,32 +96,7 @@
             android:background="@drawable/custom_icon_dangnhap"/>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Already have an account?"
-            android:layout_gravity="center"
-            android:textSize="15dp"
-            android:textStyle="bold"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:text="Sign in"
-            android:textColor="#D980FA"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
 
 
