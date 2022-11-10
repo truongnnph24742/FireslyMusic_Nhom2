@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ManHinhDangNhapActivity"
+    android:background="#f111"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/img_mhc"
+        android:layout_gravity="center"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login to Your Account"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edit_dangnhap"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:drawableLeft="@drawable/ic_baseline_person_24"
+        android:drawablePadding="20dp"
+        android:hint="user name"
+        android:textColorHint="@color/white"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edit_dangnhap"
+        android:layout_margin="15dp"
+        android:padding="15dp"
+        android:drawableLeft="@drawable/ic_baseline_key_24"
+        android:drawablePadding="20dp"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/white"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="sign in"
+        android:padding="15dp"
+        android:background="@drawable/custom_button_dangnhap"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot the password ?"
+        android:layout_gravity="center"
+        android:textColor="#D980FA"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="or continue with"
+        android:layout_gravity="center"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/gg"
+            android:background="@drawable/custom_icon_dangnhap"/>
+        <ImageView
+            android:layout_marginLeft="25dp"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:padding="5dp"
+            android:src="@drawable/facebook_transparent"
+            android:background="@drawable/custom_icon_dangnhap"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Already have an account?"
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#D980FA"
+            android:text="Sign in"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
