@@ -35,6 +35,7 @@
         android:hint="user name"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
+        android:text="truong123"
         />
     <EditText
         android:id="@+id/ed_pass"
@@ -49,6 +50,7 @@
         android:inputType="textPassword"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
+        android:text="123"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sing"
