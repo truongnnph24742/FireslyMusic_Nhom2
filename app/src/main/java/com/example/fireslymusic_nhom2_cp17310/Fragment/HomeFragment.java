@@ -1,5 +1,6 @@
 package com.example.fireslymusic_nhom2_cp17310.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,10 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fireslymusic_nhom2_cp17310.Activity.DsBaihatTrendingActivity;
+import com.example.fireslymusic_nhom2_cp17310.Adapter.DSsingerAdapter;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.SongAdapter;
+import com.example.fireslymusic_nhom2_cp17310.DTO.Singer;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
@@ -23,10 +27,11 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView rcv_baihattrending;
+    RecyclerView rcv_baihattrending,rcv_singer;
+    DSsingerAdapter dSsingerAdapter;
     SongAdapter adapter;
     TextView txt_tatca;
-
+    @SuppressLint({"MissingInflatedId", "ResourceType"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +51,14 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(), DsBaihatTrendingActivity.class));
             }
         });
+        // Xử lí code list ca sĩ hiển thị lên rcv
+        rcv_singer = view.findViewById(R.id.rcv_singer);
+        dSsingerAdapter = new DSsingerAdapter(getContext());
+        LinearLayoutManager manager1 = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        rcv_singer.setLayoutManager(manager1);
+        dSsingerAdapter.setData(listSinger());
+        rcv_singer.setAdapter(dSsingerAdapter);
+
 
 
 
@@ -64,5 +77,21 @@ public class HomeFragment extends Fragment {
         list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi"));
 
         return list;
+    }
+    private List<Singer> listSinger(){
+        List<Singer> list = new ArrayList<>();
+        list.add(new Singer("Karik",R.drawable.karik));
+        list.add(new Singer("Sơn Tùng MTP",R.drawable.sontung));
+        list.add(new Singer("Mono",R.drawable.mono));
+        list.add(new Singer("Charlie puth",R.drawable.img_1));
+        list.add(new Singer("Binz",R.drawable.binz));
+        list.add(new Singer("Bảo Anh",R.drawable.baoanh));
+        list.add(new Singer("Hoàng Yến Chibi",R.drawable.hoangyenchibi));
+        list.add(new Singer("Jack",R.drawable.jack));
+        list.add(new Singer("Hồ Ngọc Hà",R.drawable.hongocha));
+
+
+        return list;
+
     }
 }
