@@ -78,6 +78,23 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"/>
 
+        <TextView
+            android:id="@+id/txt_moingay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bài hát mới mỗi ngày"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:textColor="#F8F5F5"
+            android:layout_margin="10dp"
+            />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_every"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 

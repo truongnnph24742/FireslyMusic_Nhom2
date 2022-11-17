@@ -11,13 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fireslymusic_nhom2_cp17310.Activity.DsBaihatTrendingActivity;
+import com.example.fireslymusic_nhom2_cp17310.Activity.DsEveyDayActivity;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.DSsingerAdapter;
+import com.example.fireslymusic_nhom2_cp17310.Adapter.EverydayAdapter;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.SongAdapter;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.TheLoaiAdapter;
+import com.example.fireslymusic_nhom2_cp17310.DTO.Everyday;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Singer;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.DTO.TheLoai;
@@ -29,11 +34,14 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView rcv_baihattrending,rcv_singer,rcv_theloai,rcv_singer2;
+    RecyclerView rcv_baihattrending,rcv_singer,rcv_theloai,rcv_every;
     DSsingerAdapter dSsingerAdapter;
     TheLoaiAdapter theLoaiAdapter;
     SongAdapter adapter;
-    TextView txt_tatca;
+    EverydayAdapter everydayAdapter;
+    TextView txt_tatca, txt_moingay;
+    Animation animation;
+
     @SuppressLint({"MissingInflatedId", "ResourceType"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +80,22 @@ public class HomeFragment extends Fragment {
         theLoaiAdapter.setData(listTheLoai());
         rcv_theloai.setAdapter(theLoaiAdapter);
 
-
+        //xử lí code list nhạc mới mỗi ngày
+        rcv_every = view.findViewById(R.id.rcv_every);
+        everydayAdapter = new EverydayAdapter(getContext());
+        LinearLayoutManager manager3 = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        rcv_every.setLayoutManager(manager3);
+        everydayAdapter.setData(listMoiNgay());
+        rcv_every.setAdapter(everydayAdapter);
+        animation = AnimationUtils.loadAnimation(getContext(), R.anim.dis_cd);
+        txt_moingay = view.findViewById(R.id.txt_moingay);
+        txt_moingay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent im = new Intent(getContext(), DsEveyDayActivity.class);
+                startActivity(im);
+            }
+        });
 
 
 
@@ -115,6 +138,18 @@ public class HomeFragment extends Fragment {
         listtl.add(new TheLoai(5,"Us-Uk",R.drawable.img_1));
 
         return listtl;
+    }
+    private List<Everyday> listMoiNgay() {
+        List<Everyday> listt1 = new ArrayList<>();
+        listt1.add(new Everyday(1,"Sao cũng được",R.drawable.sao_cung_dc));
+        listt1.add(new Everyday(2,"Tòng Phu",R.drawable.tong_phu));
+        listt1.add(new Everyday(3,"Cưới không chốt nha",R.drawable.cuoi_hong));
+        listt1.add(new Everyday(4,"Pháo Hồng",R.drawable.phao_hong));
+        listt1.add(new Everyday(5,"Waiting for you",R.drawable.wai_ting));
+        listt1.add(new Everyday(6,"See you again",R.drawable.see_you));
+
+
+        return listt1;
     }
 
 }
