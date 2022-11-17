@@ -16,8 +16,12 @@ public class Data extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String TaiKhoan = " CREATE TABLE TAIKHOAN ( matk text primary key , hoTen text , matkhau text ) " ;
         db.execSQL ( TaiKhoan ) ;
-
         db.execSQL ( " INSERT INTO TAIKHOAN VALUES  ( 'admin' , 'abc123' , 'a1234567' ) " ) ;
+        String NgheSi = "CREATE TABLE NGHESI(manghesi integer primary key autoincrement , tennghesi text ,anhnghesi integer )";
+        db.execSQL(NgheSi);
+        String BaiHat = "CREATE TABLE BAIHAT(mabaihat integer primary key autoincrement , tenbaihat text , anhbaihat integer , filenhac text , manghesi references NGHESI (manghesi))";
+        db.execSQL(BaiHat);
+
     }
 
     @Override
