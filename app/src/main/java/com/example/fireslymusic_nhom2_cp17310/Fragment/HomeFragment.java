@@ -17,8 +17,10 @@ import android.widget.TextView;
 import com.example.fireslymusic_nhom2_cp17310.Activity.DsBaihatTrendingActivity;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.DSsingerAdapter;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.SongAdapter;
+import com.example.fireslymusic_nhom2_cp17310.Adapter.TheLoaiAdapter;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Singer;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
+import com.example.fireslymusic_nhom2_cp17310.DTO.TheLoai;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
 import java.util.ArrayList;
@@ -27,8 +29,9 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView rcv_baihattrending,rcv_singer;
+    RecyclerView rcv_baihattrending,rcv_singer,rcv_theloai,rcv_singer2;
     DSsingerAdapter dSsingerAdapter;
+    TheLoaiAdapter theLoaiAdapter;
     SongAdapter adapter;
     TextView txt_tatca;
     @SuppressLint({"MissingInflatedId", "ResourceType"})
@@ -59,6 +62,15 @@ public class HomeFragment extends Fragment {
         dSsingerAdapter.setData(listSinger());
         rcv_singer.setAdapter(dSsingerAdapter);
 
+
+
+        // Xử lí code list thể loại hiển thị  lên rcv
+        rcv_theloai = view.findViewById(R.id.rcv_theloainhac);
+        theLoaiAdapter = new TheLoaiAdapter(getContext());
+        LinearLayoutManager manager2 = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        rcv_theloai.setLayoutManager(manager2);
+        theLoaiAdapter.setData(listTheLoai());
+        rcv_theloai.setAdapter(theLoaiAdapter);
 
 
 
@@ -94,4 +106,15 @@ public class HomeFragment extends Fragment {
         return list;
 
     }
+    private List<TheLoai> listTheLoai() {
+        List<TheLoai> listtl = new ArrayList<>();
+        listtl.add(new TheLoai(1,"Pop",R.drawable.img_6));
+        listtl.add(new TheLoai(2,"Ballad",R.drawable.img_7));
+        listtl.add(new TheLoai(3,"NhạcTrẻ",R.drawable.img_5));
+        listtl.add(new TheLoai(4,"Rap",R.drawable.img_2));
+        listtl.add(new TheLoai(5,"Us-Uk",R.drawable.img_1));
+
+        return listtl;
+    }
+
 }
