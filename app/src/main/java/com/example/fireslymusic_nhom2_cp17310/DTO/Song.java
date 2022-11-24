@@ -20,11 +20,18 @@ public class Song {
     public Song(int id_m, String song_name, int img, String singer) {
         this.id_m = id_m;
         this.song_name = song_name;
-
         this.img = img;
         this.singer = singer;
     }
 
+    public Song(int id_m, String song_name,int img ,String singer ,int file ) {
+        this.id_m = id_m;
+        this.song_name = song_name;
+        this.img = img;
+        this.singer = singer;
+        this.file = file;
+
+    }
 
     public int getId_m() {
         return id_m;
