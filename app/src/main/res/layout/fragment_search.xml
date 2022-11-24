@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.SearchFragment"
     android:orientation="vertical"
     android:background="#f111">
 
-    <TextView
-        android:gravity="center"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Search"
-        android:textSize="25dp"
-        android:textColor="@color/white"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:queryHint="Tìm kiếm bài hát"
+        android:padding="5dp"
+        android:background="@drawable/custom_search"
+        app:iconifiedByDefault="false"
+        app:searchHintIcon="@color/white"
+        />
 
-</LinearLayout>
+
+
+</RelativeLayout>
