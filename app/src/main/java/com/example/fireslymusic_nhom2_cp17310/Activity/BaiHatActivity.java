@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.fireslymusic_nhom2_cp17310.DTO.Everyday;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
@@ -23,12 +24,14 @@ import java.util.List;
 public class BaiHatActivity extends AppCompatActivity {
     TextView txt_tenbaihet, txt_tgbatdau, txt_tgketthuc,txt_tencasi;
     SeekBar tgianchay;
-    ImageButton btnPrevious,btnPlay,btnNext;
+    ImageButton btnPrevious,btnPlay,btnNext, btnrandom, btnrepost;
     ImageView cd;
     List<Song> list;
+    List<Everyday>listt;
     MediaPlayer mediaPlayer;
     int position ;
     Animation animation;
+    boolean checkrandom = false, repeat = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +47,8 @@ public class BaiHatActivity extends AppCompatActivity {
         btnPrevious = findViewById(R.id.btn_previous);
         btnPlay = findViewById(R.id.btn_pause);
         btnNext = findViewById(R.id.btn_skip);
+        btnrandom = findViewById(R.id.btn_random);
+        btnrepost = findViewById(R.id.btn_reptot);
         cd = findViewById(R.id.cd);
         // tạo danh sách bài hát
         list = new ArrayList<>();
@@ -54,6 +59,8 @@ public class BaiHatActivity extends AppCompatActivity {
         list.add(new Song(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Phương Anh",R.raw.loi_xin_loi_vung_ve));
         list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi",R.raw.uemxinloi));
         //khởi tạo
+        listt = new ArrayList<>();
+        listt.add(new Everyday(1,"See you agani","Charlie puth",R.drawable.see_you,R.raw.see_you_agan));
         khoitao();
         animation = AnimationUtils.loadAnimation(this, R.anim.dis_cd);
         //gán sự kiện cho các nút bấm
@@ -112,6 +119,38 @@ public class BaiHatActivity extends AppCompatActivity {
                 SetTimeToal();
                 capNhapthoigian();
             }
+        });
+        btnrandom.setOnClickListener(view -> {
+            if (!checkrandom){
+                if (repeat){
+                    repeat = false;
+                    btnrandom.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                    btnrandom.setImageResource(R.drawable.ic_baseline_repeat_24);
+                }else {
+                    btnrandom.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                }
+                checkrandom = true;
+            }else {
+                btnrandom.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                checkrandom = false;
+            }
+
+        });
+        btnrepost.setOnClickListener(view -> {
+            if (!repeat){
+                if (checkrandom){
+                    checkrandom = false;
+                    btnrepost.setImageResource(R.drawable.ic_baseline_repeat_24);
+                    btnrepost.setImageResource(R.drawable.ic_baseline_shuffle_24);
+                }else {
+                    btnrepost.setImageResource(R.drawable.ic_baseline_repeat_24);
+                }
+                repeat = true;
+            }else {
+                btnrepost.setImageResource(R.drawable.ic_baseline_repeat_24);
+                repeat = false;
+            }
+
         });
         tgianchay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

@@ -141,12 +141,13 @@ public class HomeFragment extends Fragment {
     }
     private List<Everyday> listMoiNgay() {
         List<Everyday> listt1 = new ArrayList<>();
-        listt1.add(new Everyday(1,"Sao cũng được",R.drawable.sao_cung_dc));
-        listt1.add(new Everyday(2,"Tòng Phu",R.drawable.tong_phu));
-        listt1.add(new Everyday(3,"Cưới không chốt nha",R.drawable.cuoi_hong));
-        listt1.add(new Everyday(4,"Pháo Hồng",R.drawable.phao_hong));
-        listt1.add(new Everyday(5,"Waiting for you",R.drawable.wai_ting));
-        listt1.add(new Everyday(6,"See you again",R.drawable.see_you));
+        listt1.add(new Everyday(1,"See you again",R.drawable.see_you));
+        listt1.add(new Everyday(2,"Sao cũng được",R.drawable.sao_cung_dc));
+        listt1.add(new Everyday(3,"Tòng Phu",R.drawable.tong_phu));
+        listt1.add(new Everyday(4,"Cưới không chốt nha",R.drawable.cuoi_hong));
+        listt1.add(new Everyday(5,"Pháo Hồng",R.drawable.phao_hong));
+        listt1.add(new Everyday(6,"Waiting for you",R.drawable.wai_ting));
+
 
 
         return listt1;
