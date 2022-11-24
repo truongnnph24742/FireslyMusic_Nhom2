@@ -1,6 +1,7 @@
 package com.example.fireslymusic_nhom2_cp17310.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fireslymusic_nhom2_cp17310.Activity.DSBaiHatChiTietNS_Activity;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Singer;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
@@ -39,8 +41,19 @@ public class DSsingerAdapter extends RecyclerView.Adapter<DSsingerAdapter.Singer
         if(singer==null){
             return ;
         }
+        int index = position;
         holder.txt_namesinger.setText(singer.getSinger_name());
         holder.img_singer.setImageResource(singer.getImg_singer());
+        holder.img_singer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DSBaiHatChiTietNS_Activity.class);
+                intent.putExtra("vitri",singer.getId());
+                context.startActivity(intent);
+
+
+            }
+        });
     }
 
     @Override
