@@ -89,45 +89,76 @@
 
     <ImageButton
         android:id="@+id/btn_pause"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="84dp"
+        android:layout_width="56dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="fitXY"
         android:background="#0D161C"
 
         android:src="@drawable/ic_baseline_play_circle_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay" />
 
     <ImageButton
         android:id="@+id/btn_previous"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="84dp"
+        android:layout_width="57dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="76dp"
         android:layout_marginRight="30dp"
         android:background="#0D161C"
         android:scaleType="fitXY"
 
         android:src="@drawable/ic_baseline_skip_previous_24"
         app:layout_constraintEnd_toStartOf="@+id/btn_pause"
-        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay" />
 
     <ImageButton
+        android:id="@+id/btn_skip"
+        android:layout_width="53dp"
+
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="84dp"
+        android:background="#0D161C"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_skip_next_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_pause"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay" />
+
+    <ImageButton
+        android:id="@+id/btn_reptot"
+        android:layout_width="47dp"
+
+        android:layout_height="51dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="80dp"
+        android:background="#0D161C"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_repeat_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.694"
+        app:layout_constraintStart_toEndOf="@+id/btn_pause"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay" />
+
+    <ImageButton
+        android:id="@+id/btn_random"
+        android:layout_width="45dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="30dp"
         android:background="#0D161C"
         android:scaleType="fitXY"
 
-        android:id="@+id/btn_skip"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="84dp"
-        android:src="@drawable/ic_baseline_skip_next_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/btn_pause"
+        android:src="@drawable/ic_baseline_shuffle_24"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pause"
+        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

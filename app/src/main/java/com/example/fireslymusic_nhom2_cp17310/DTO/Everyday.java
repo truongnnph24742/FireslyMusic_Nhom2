@@ -23,6 +23,14 @@ public class Everyday {
         this.img = img;
     }
 
+    public Everyday(int id_every, String everyday_name, String singer, int file, int img) {
+        this.id_every = id_every;
+        this.everyday_name = everyday_name;
+        this.singer = singer;
+        this.file = file;
+        this.img = img;
+    }
+
     public int getId_every() {
         return id_every;
     }
