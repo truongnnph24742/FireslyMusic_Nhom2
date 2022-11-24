@@ -21,6 +21,9 @@ public class Data extends SQLiteOpenHelper {
         db.execSQL(NgheSi);
         String BaiHat = "CREATE TABLE BAIHAT(mabaihat integer primary key autoincrement , tenbaihat text , anhbaihat integer , filenhac text , manghesi references NGHESI (manghesi))";
         db.execSQL(BaiHat);
+        db.execSQL("INSERT INTO NGHESI VALUES('1','MONO',1),('2','Hoàng Yến',2),('3','Erik',3),('4','Sơn Tùng MPT',4)");
+        db.execSQL("INSERT INTO BAIHAT VALUES('1','EM LA',1),('2','Hoàng Yến',2),('3','Erik',3),('4','Sơn Tùng MPT',4)");
+
 
     }
 
@@ -32,4 +35,5 @@ public class Data extends SQLiteOpenHelper {
 
         }
     }
+
 }

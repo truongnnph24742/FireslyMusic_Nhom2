@@ -5,16 +5,29 @@ public class Song {
     private String song_name;
     private String singer;
     private int status;
-    private int file;
+    private String file;
     private int img;
+    private int id_ns;
 
-    public Song(int id_m, String song_name, String singer, int status, int file, int img) {
+    public Song(int id_m, String song_name, String singer, int status, String file, int img,int id_ns) {
         this.id_m = id_m;
         this.song_name = song_name;
         this.singer = singer;
         this.status = status;
         this.file = file;
         this.img = img;
+        this.id_ns = id_ns;
+    }
+
+    public Song(int id_m, String song_name, int img,String singer , int id_ns) {
+        this.id_m = id_m;
+        this.song_name = song_name;
+        this.singer = singer;
+        this.img = img;
+        this.id_ns = id_ns;
+    }
+
+    public Song() {
     }
 
     public Song(int id_m, String song_name, int img, String singer) {
@@ -25,6 +38,13 @@ public class Song {
         this.singer = singer;
     }
 
+    public int getId_ns() {
+        return id_ns;
+    }
+
+    public void setId_ns(int id_ns) {
+        this.id_ns = id_ns;
+    }
 
     public int getId_m() {
         return id_m;
@@ -58,11 +78,11 @@ public class Song {
         this.status = status;
     }
 
-    public int getFile() {
+    public String getFile() {
         return file;
     }
 
-    public void setFile(int file) {
+    public void setFile(String file) {
         this.file = file;
     }
 
