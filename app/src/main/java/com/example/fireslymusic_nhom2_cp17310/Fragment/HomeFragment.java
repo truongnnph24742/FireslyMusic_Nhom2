@@ -104,26 +104,27 @@ public class HomeFragment extends Fragment {
 
     private List<Song> listSongTrending() {
         List<Song> list = new ArrayList<>();
-        list.add(new Song(1,"Cuối Cùng Thì",R.drawable.cuoicungthi,"Jack"));
-        list.add(new Song(2,"Beautiful Monster",R.drawable.beautifumonster,"Binz & Soobin"));
-        list.add(new Song(3,"Cô Đơn Trên Sofa",R.drawable.codontrensofa,"Hồ Ngọc Hà"));
-        list.add(new Song(4,"Có Chơi Có chịu",R.drawable.cochoicochiu,"Karik"));
-        list.add(new Song(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Phương Anh"));
-        list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi"));
+
+        list.add(new Song(1,"Cuối Cùng Thì",R.drawable.cuoicungthi,"Jack",8));
+        list.add(new Song(2,"Beautiful Monster",R.drawable.beautifumonster,"Binz & Soobin",5));
+        list.add(new Song(3,"Cô Đơn Trên Sofa",R.drawable.codontrensofa,"Hồ Ngọc Hà",9));
+        list.add(new Song(4,"Có Chơi Có chịu",R.drawable.cochoicochiu,"Karik",1));
+        list.add(new Song(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Bảo Anh",6));
+        list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi",7));
 
         return list;
     }
     private List<Singer> listSinger(){
         List<Singer> list = new ArrayList<>();
-        list.add(new Singer("Karik",R.drawable.karik));
-        list.add(new Singer("Sơn Tùng MTP",R.drawable.sontung));
-        list.add(new Singer("Mono",R.drawable.mono));
-        list.add(new Singer("Charlie puth",R.drawable.img_1));
-        list.add(new Singer("Binz",R.drawable.binz));
-        list.add(new Singer("Bảo Anh",R.drawable.baoanh));
-        list.add(new Singer("Hoàng Yến Chibi",R.drawable.hoangyenchibi));
-        list.add(new Singer("Jack",R.drawable.jack));
-        list.add(new Singer("Hồ Ngọc Hà",R.drawable.hongocha));
+        list.add(new Singer("Karik",R.drawable.karik,1));
+        list.add(new Singer("Sơn Tùng MTP",R.drawable.sontung,2));
+        list.add(new Singer("Mono",R.drawable.mono,3));
+        list.add(new Singer("Charlie puth",R.drawable.img_1,4));
+        list.add(new Singer("Binz",R.drawable.binz,5));
+        list.add(new Singer("Bảo Anh",R.drawable.baoanh,6));
+        list.add(new Singer("Hoàng Yến Chibi",R.drawable.hoangyenchibi,7));
+        list.add(new Singer("Jack",R.drawable.jack,8));
+        list.add(new Singer("Hồ Ngọc Hà",R.drawable.hongocha,9));
 
 
         return list;

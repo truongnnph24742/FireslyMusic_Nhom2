@@ -33,6 +33,10 @@ public class Song {
 
     }
 
+    public Song() {
+
+    }
+
     public int getId_m() {
         return id_m;
     }
