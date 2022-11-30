@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D161C"
+    tools:context=".Activity.BaiHatSearchActivity">
+
+    <TextView
+        android:id="@+id/txt_tenbaihat1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Tên bài hát"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.096"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txt_cassi1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Ca sĩ"
+        android:textColor="#AEA7A7"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tenbaihat1" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cd1"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="48dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_tenbaihat1" />
+
+    <SeekBar
+        android:id="@+id/thoi_gian_chay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:outlineSpotShadowColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cd1" />
+
+    <TextView
+        android:id="@+id/txt_tgbatdau1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:text="00:00"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+    <TextView
+        android:id="@+id/txt_tgketthuc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:text="00:00"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toEndOf="@+id/txt_tgbatdau1"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+    <ImageButton
+        android:id="@+id/btn_pause1"
+        android:layout_width="56dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="fitXY"
+        android:background="#0D161C"
+
+        android:src="@drawable/ic_baseline_play_circle_outline_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+    <ImageButton
+        android:id="@+id/btn_previous1"
+        android:layout_width="57dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginRight="30dp"
+        android:background="#0D161C"
+        android:scaleType="fitXY"
+
+        android:src="@drawable/ic_baseline_skip_previous_24"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pause1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+    <ImageButton
+        android:id="@+id/btn_skip1"
+        android:layout_width="53dp"
+
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="84dp"
+        android:background="#0D161C"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_skip_next_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_pause1"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+    <ImageButton
+        android:id="@+id/btn_reptot1"
+        android:layout_width="47dp"
+
+        android:layout_height="51dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="80dp"
+        android:background="#0D161C"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_repeat_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.694"
+        app:layout_constraintStart_toEndOf="@+id/btn_pause1"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+    <ImageButton
+        android:id="@+id/btn_random1"
+        android:layout_width="45dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="30dp"
+        android:background="#0D161C"
+        android:scaleType="fitXY"
+
+        android:src="@drawable/ic_baseline_shuffle_24"
+        app:layout_constraintEnd_toStartOf="@+id/btn_pause1"
+        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thoi_gian_chay1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

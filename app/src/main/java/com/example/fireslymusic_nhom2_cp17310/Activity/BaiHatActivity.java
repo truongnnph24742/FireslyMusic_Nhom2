@@ -58,6 +58,18 @@ public class BaiHatActivity extends AppCompatActivity {
         list.add(new Song(4,"Có Chơi Có chịu",R.drawable.cochoicochiu,"Karik",R.raw.con_mua_cuoi));
         list.add(new Song(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Phương Anh",R.raw.loi_xin_loi_vung_ve));
         list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi",R.raw.uemxinloi));
+
+        list.add(new Song(7,"See you again",R.drawable.see_you,"Wiz Khalifa",R.raw.see_you_agan));
+        list.add(new Song(8,"Sao cũng được",R.drawable.sao_cung_dc,"Thành Đạt",R.raw.ngannam));
+        list.add(new Song(9,"Tòng Phu",R.drawable.tong_phu,"KEYO",R.raw.tongphu));
+        list.add(new Song(10,"Cưới không chốt nha",R.drawable.cuoi_hong,"Út Nhị",R.raw.cuoikhong));
+        list.add(new Song(11,"Pháo Hồng",R.drawable.phao_hong,"Đạt Long Vinh",R.raw.phaohong));
+        list.add(new Song(12,"Waiting for you",R.drawable.wai_ting,"MONO",R.raw.waiting_for_you));
+        list.add(new Song(13,"A y mạc",R.drawable.aymac1,"阿衣莫",R.raw.aymac));
+        list.add(new Song(14,"Thuyền quyên",R.drawable.thuyenquyen1,"Diệu kiên",R.raw.thuyenquyenmusic));
+        list.add(new Song(15,"Đốt lửa",R.drawable.dotlua,"Thế Hưng",R.raw.dotluamusic));
+
+
         //khởi tạo
         listt = new ArrayList<>();
         listt.add(new Everyday(1,"See you agani","Charlie puth",R.drawable.see_you,R.raw.see_you_agan));
