@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.fireslymusic_nhom2_cp17310.Activity.BaiHatActivity;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
+import java.io.Serializable;
 import java.nio.BufferUnderflowException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder> {
@@ -47,19 +51,20 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
             if(song==null){
                 return;
             }
-        holder.img_song.setImageResource(song.getImg());
-        holder.txt_namesong.setText(song.getSong_name());
+        Glide.with(context).load(song.getImgsong()).into(holder.img_song);
+        holder.txt_namesong.setText(song.getName());
         holder.layout_bhtd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickBaiHatTD(position);
+                clickBaiHatTD(listSong, position);
             }
         });
     }
-    private void clickBaiHatTD(int position){
+    private void clickBaiHatTD(List<Song> song1,int index){
         Intent intent = new Intent(context, BaiHatActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("vitri",position);
+        bundle.putSerializable("list", (Serializable) song1);
+        bundle.putInt("index",index);
         intent.putExtras(bundle);
         context.startActivity(intent);
 

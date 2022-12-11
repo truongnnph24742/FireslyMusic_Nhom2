@@ -1,49 +1,42 @@
 package com.example.fireslymusic_nhom2_cp17310.DTO;
 
+import android.os.Parcel;
+
 import java.io.Serializable;
 
 public class Search implements Serializable {
-    private int id_m;
-    private String song_name;
-    private String singer;
-    private int status;
-    private int file;
-    private int img;
+    int id;
+    int id_ns;
+    String name;
+    String singer;
+    String imgsong;
+    String filesong;
 
     public Search() {
     }
 
-    public Search(int id_m, String song_name, String singer, int file, int img) {
-        this.id_m = id_m;
-        this.song_name = song_name;
-        this.singer = singer;
-        this.file = file;
-        this.img = img;
+    public int getId() {
+        return id;
     }
 
-    public Search(int id_m, String song_name, int img, String singer, int file) {
-        this.id_m = id_m;
-        this.song_name = song_name;
-        this.img = img;
-        this.singer = singer;
-        this.file = file;
-
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getId_m() {
-        return id_m;
+    public int getId_ns() {
+        return id_ns;
     }
 
-    public void setId_m(int id_m) {
-        this.id_m = id_m;
+    public void setId_ns(int id_ns) {
+        this.id_ns = id_ns;
     }
 
-    public String getSong_name() {
-        return song_name;
+    public String getName() {
+        return name;
     }
 
-    public void setSong_name(String song_name) {
-        this.song_name = song_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSinger() {
@@ -54,27 +47,19 @@ public class Search implements Serializable {
         this.singer = singer;
     }
 
-    public int getStatus() {
-        return status;
+    public String getImgsong() {
+        return imgsong;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setImgsong(String imgsong) {
+        this.imgsong = imgsong;
     }
 
-    public int getFile() {
-        return file;
+    public String getFilesong() {
+        return filesong;
     }
 
-    public void setFile(int file) {
-        this.file = file;
-    }
-
-    public int getImg() {
-        return img;
-    }
-
-    public void setImg(int img) {
-        this.img = img;
+    public void setFilesong(String filesong) {
+        this.filesong = filesong;
     }
 }

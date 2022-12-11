@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
@@ -27,7 +28,6 @@ public class DS_baihat_nghesi extends RecyclerView.Adapter<DS_baihat_nghesi.BaiH
     public DS_baihat_nghesi(Context context) {
         this.context = context;
     }
-
     @NonNull
     @Override
     public BaiHatNSViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,8 +42,8 @@ public class DS_baihat_nghesi extends RecyclerView.Adapter<DS_baihat_nghesi.BaiH
         if (song == null) {
             return;
         }
-        holder.img_baihatNS.setImageResource(song.getImg());
-        holder.txt_namesongNS.setText(song.getSong_name());
+        Glide.with(context).load(song.getImgsong()).into(holder.img_baihatNS);
+        holder.txt_namesongNS.setText(song.getName());
         holder.txt_singerNS.setText(song.getSinger());
     }
 

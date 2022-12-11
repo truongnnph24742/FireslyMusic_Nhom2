@@ -14,12 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.fireslymusic_nhom2_cp17310.Activity.BaiHatActivity;
 import com.example.fireslymusic_nhom2_cp17310.Activity.BaiHatSearchActivity;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Search;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.DssearchAdapter>{
@@ -47,21 +49,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.DssearchAd
         if(search==null){
             return;
         }
-        holder.img_search.setImageResource(search.getImg());
-        holder.tenbai.setText(search.getSong_name());
+        Glide.with(context).load(search.getImgsong()).into(holder.img_search);
+        holder.tenbai.setText(search.getName());
         holder.tenCasi.setText(search.getSinger());
         holder.layout_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickBaiHatTD(search);
+                clickBaiHatTD(list,position);
             }
         });
     }
 
-    private void clickBaiHatTD(Search search){
-        Intent intent = new Intent(context, BaiHatSearchActivity.class);
+    private void clickBaiHatTD(List<Search> song1,int index){
+        Intent intent = new Intent(context,BaiHatSearchActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("tim",search);
+        bundle.putSerializable("tim", (Serializable) song1);
+        bundle.putInt("index",index);
         intent.putExtras(bundle);
         context.startActivity(intent);
 

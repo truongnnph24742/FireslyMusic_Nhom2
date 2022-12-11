@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Everyday;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Search;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +30,8 @@ public class BaiHatSearchActivity extends AppCompatActivity {
     SeekBar tgianchay;
     ImageButton btnPrevious,btnPlay,btnNext, btnrandom, btnrepost;
     ImageView cd;
+    List<Search> listv1 = new ArrayList<>();
     List<Search> list;
-    List<Everyday>listt;
     MediaPlayer mediaPlayer;
     int position ;
     Animation animation;
@@ -36,49 +39,37 @@ public class BaiHatSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bai_hat_search);
+        setContentView(R.layout.activity_bai_hat);
         Bundle bundle = getIntent().getExtras();
-        if(bundle==null){
+        if (bundle==null){
             return;
         }
-        Search search = (Search) bundle.get("tim");
-        //ánh xạ view
-        position = (search.getId_m()-1);
-        txt_tenbaihet = findViewById(R.id.txt_tenbaihat1);
-        txt_tgbatdau = findViewById(R.id.txt_tgbatdau1);
-        txt_tgketthuc = findViewById(R.id.txt_tgketthuc1);
-        txt_tencasi = findViewById(R.id.txt_cassi1);
-        tgianchay = findViewById(R.id.thoi_gian_chay1);
-        btnPrevious = findViewById(R.id.btn_previous1);
-        btnPlay = findViewById(R.id.btn_pause1);
-        btnNext = findViewById(R.id.btn_skip1);
-        btnrandom = findViewById(R.id.btn_random1);
-        btnrepost = findViewById(R.id.btn_reptot1);
-        cd = findViewById(R.id.cd1);
-        // tạo danh sách bài hát
+        listv1 = (List<Search>) bundle.getSerializable("tim");
+        Log.d("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz ", "onCreate: "+listv1.size());
+        position = bundle.getInt("index");
         list = new ArrayList<>();
-        list.add(new Search(1,"Cuối Cùng Thì",R.drawable.cuoicungthi,"Jack",R.raw.cuoicungthi));
-        list.add(new Search(2,"Beautiful Monster",R.drawable.beautifumonster,"Binz & Soobin",R.raw.beatifullmonster));
-        list.add(new Search(3,"Cô Đơn Trên Sofa",R.drawable.codontrensofa,"Hồ Ngọc Hà",R.raw.codontrensofa));
-        list.add(new Search(4,"Có Chơi Có chịu",R.drawable.cochoicochiu,"Karik",R.raw.con_mua_cuoi));
-        list.add(new Search(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Phương Anh",R.raw.loi_xin_loi_vung_ve));
-        list.add(new Search(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi",R.raw.uemxinloi));
-
-        list.add(new Search(7,"See you again",R.drawable.see_you,"Wiz Khalifa",R.raw.see_you_agan));
-        list.add(new Search(8,"Sao cũng được",R.drawable.sao_cung_dc,"Thành Đạt",R.raw.ngannam));
-        list.add(new Search(9,"Tòng Phu",R.drawable.tong_phu,"KEYO",R.raw.tongphu));
-        list.add(new Search(10,"Cưới không chốt nha",R.drawable.cuoi_hong,"Út Nhị",R.raw.cuoikhong));
-        list.add(new Search(11,"Pháo Hồng",R.drawable.phao_hong,"Đạt Long Vinh",R.raw.phaohong));
-        list.add(new Search(12,"Waiting for you",R.drawable.wai_ting,"MONO",R.raw.waiting_for_you));
-        list.add(new Search(13,"A y mạc",R.drawable.aymac1,"阿衣莫",R.raw.aymac));
-        list.add(new Search(14,"Thuyền quyên",R.drawable.thuyenquyen1,"Diệu kiên",R.raw.thuyquyen));
-        list.add(new Search(15,"Đốt lửa",R.drawable.dotlua,"Thế Hưng",R.raw.dotluamusic));
-
-
+        list.addAll(listv1);
+        //ánh xạ view
+        txt_tenbaihet = findViewById(R.id.txt_tenbaihat);
+        txt_tgbatdau = findViewById(R.id.txt_tgbatdau);
+        txt_tgketthuc = findViewById(R.id.txt_tgketthuc);
+        txt_tencasi = findViewById(R.id.txt_cassi);
+        tgianchay = findViewById(R.id.thoi_gian_chay);
+        btnPrevious = findViewById(R.id.btn_previous);
+        btnPlay = findViewById(R.id.btn_pause);
+        btnNext = findViewById(R.id.btn_skip);
+        btnrandom = findViewById(R.id.btn_random);
+        btnrepost = findViewById(R.id.btn_reptot);
+        cd = findViewById(R.id.cd);
+        // tạo danh sách bài hát
+        Log.d("zzzzzzzzzzzz", list.get(position).getName());
         //khởi tạo
-        listt = new ArrayList<>();
-        listt.add(new Everyday(1,"See you agani","Charlie puth",R.drawable.see_you,R.raw.see_you_agan));
-        khoitao();
+
+        try {
+            khoitao();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         animation = AnimationUtils.loadAnimation(this, R.anim.dis_cd);
         //gán sự kiện cho các nút bấm
 
@@ -112,7 +103,11 @@ public class BaiHatSearchActivity extends AppCompatActivity {
                 if (mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
                 }
-                khoitao();
+                try {
+                    khoitao();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mediaPlayer.start();
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 SetTimeToal();
@@ -130,7 +125,11 @@ public class BaiHatSearchActivity extends AppCompatActivity {
                 if (mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
                 }
-                khoitao();
+                try {
+                    khoitao();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mediaPlayer.start();
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 SetTimeToal();
@@ -191,11 +190,15 @@ public class BaiHatSearchActivity extends AppCompatActivity {
 
 
     }
-    public void khoitao(){
-        mediaPlayer = MediaPlayer.create(this,list.get(position).getFile());
-        txt_tenbaihet.setText(list.get(position).getSong_name());
+    public void khoitao() throws IOException {
+        Log.d("aaaaaaaaaa", list.get(position).getName());
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(list.get(position).getFilesong());
+        mediaPlayer.prepare();
+        txt_tenbaihet.setText(list.get(position).getName());
         txt_tencasi.setText(list.get(position).getSinger());
-        cd.setImageResource(list.get(position).getImg());
+        Glide.with(this).load(list.get(position).getImgsong()).into(cd);
+
     }
     public void SetTimeToal(){
         SimpleDateFormat dinhgio = new SimpleDateFormat("mm:ss");
@@ -223,7 +226,11 @@ public class BaiHatSearchActivity extends AppCompatActivity {
                         if (mediaPlayer.isPlaying()){
                             mediaPlayer.stop();
                         }
-                        khoitao();
+                        try {
+                            khoitao();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         mediaPlayer.start();
                         btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                         SetTimeToal();
@@ -234,5 +241,9 @@ public class BaiHatSearchActivity extends AppCompatActivity {
             }
         }, 100);
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+    }
 }

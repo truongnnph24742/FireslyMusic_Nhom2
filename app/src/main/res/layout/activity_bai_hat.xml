@@ -140,7 +140,6 @@
         android:layout_marginTop="80dp"
         android:background="#0D161C"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_baseline_repeat_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.694"
         app:layout_constraintStart_toEndOf="@+id/btn_pause"
@@ -155,7 +154,6 @@
         android:background="#0D161C"
         android:scaleType="fitXY"
 
-        android:src="@drawable/ic_baseline_shuffle_24"
         app:layout_constraintEnd_toStartOf="@+id/btn_pause"
         app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
