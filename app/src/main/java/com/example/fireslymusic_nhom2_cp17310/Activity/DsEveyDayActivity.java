@@ -18,27 +18,25 @@ import java.util.List;
 public class DsEveyDayActivity extends AppCompatActivity {
     RecyclerView rcv_dsmoingyatrending;
     DsEveryDayAdapter adapter;
+    List<Everyday> listv1 = new ArrayList<>();
+    List<Everyday> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ds_evey_day);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle==null){
+            return;
+        }
+        listv1 = (List<Everyday>) bundle.getSerializable("moi");
+        list = new ArrayList<>();
+        list.addAll(listv1);
         rcv_dsmoingyatrending = findViewById(R.id.rcv_dsmoingay);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         rcv_dsmoingyatrending.setLayoutManager(manager);
         adapter = new DsEveryDayAdapter(this);
-        adapter.setData(dsEveryTrending());
+        adapter.setData(list);
         rcv_dsmoingyatrending.setAdapter(adapter);
     }
-    private List<Everyday> dsEveryTrending() {
-        List<Everyday> listt1 = new ArrayList<>();
-        listt1.add(new Everyday(1,"Sao cũng được",R.drawable.sao_cung_dc));
-        listt1.add(new Everyday(2,"Tòng Phu",R.drawable.tong_phu));
-        listt1.add(new Everyday(3,"Cưới không chốt nha",R.drawable.cuoi_hong));
-        listt1.add(new Everyday(4,"Pháo Hồng",R.drawable.phao_hong));
-        listt1.add(new Everyday(5,"Waiting for you",R.drawable.wai_ting));
-        listt1.add(new Everyday(6,"See you again",R.drawable.see_you));
 
-
-        return listt1;
-    }
 }

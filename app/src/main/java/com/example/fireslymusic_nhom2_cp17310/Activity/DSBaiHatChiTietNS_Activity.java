@@ -27,7 +27,6 @@ public class DSBaiHatChiTietNS_Activity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         rcv_dsbaihatNS.setLayoutManager(manager);
         adapter = new DS_baihat_nghesi(this);
-        dsbaIhatNS_dao = new DSBAIhatNS_DAO(this);
         rcv_dsbaihatNS.setAdapter(adapter);
 
     }

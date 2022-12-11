@@ -1,18 +1,25 @@
 package com.example.fireslymusic_nhom2_cp17310.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.fireslymusic_nhom2_cp17310.Activity.BaiHatActivity;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DsBaiHatTrendingAdapter extends RecyclerView.Adapter<DsBaiHatTrendingAdapter.BaiHatTrendingViewHolder>{
@@ -36,16 +43,31 @@ public class DsBaiHatTrendingAdapter extends RecyclerView.Adapter<DsBaiHatTrendi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaiHatTrendingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaiHatTrendingViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Song song = listtd.get(position);
         if(song==null){
             return;
         }
-        holder.img_baihattrending.setImageResource(song.getImg());
-        holder.txt_namesongtd.setText(song.getSong_name());
+        Glide.with(context).load(song.getImgsong()).into(holder.img_baihattrending);
+        holder.txt_namesongtd.setText(song.getName());
         holder.txt_singertd.setText(song.getSinger());
+        holder.layout_ln.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickBaiHatTD(listtd, position);
+            }
+        });
     }
+    private void clickBaiHatTD(List<Song> song1,int index){
+        Intent intent = new Intent(context, BaiHatActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) song1);
+        bundle.putInt("index",index);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
 
+
+    }
     @Override
     public int getItemCount() {
         if(listtd!=null){
@@ -59,6 +81,7 @@ public class DsBaiHatTrendingAdapter extends RecyclerView.Adapter<DsBaiHatTrendi
         TextView txt_namesongtd;
         TextView txt_singertd;
         ImageView yeuthich;
+        LinearLayout layout_ln;
 
         public BaiHatTrendingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +89,7 @@ public class DsBaiHatTrendingAdapter extends RecyclerView.Adapter<DsBaiHatTrendi
             txt_namesongtd = itemView.findViewById(R.id.tv_tenbaihattd);
             txt_singertd = itemView.findViewById(R.id.tv_tencasitd);
             yeuthich = itemView.findViewById(R.id.yeuthich);
+            layout_ln = itemView.findViewById(R.id.layout_ln);
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.fireslymusic_nhom2_cp17310.DTO;
 
-public class TheLoai {
+import java.io.Serializable;
+
+public class TheLoai implements Serializable {
     private  int id;
     private  String tenTheLoai;
     private int imgTheLoai;

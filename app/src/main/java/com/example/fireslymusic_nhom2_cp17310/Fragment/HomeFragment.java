@@ -1,6 +1,7 @@
 package com.example.fireslymusic_nhom2_cp17310.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.fireslymusic_nhom2_cp17310.Activity.BaiHatActivity;
 import com.example.fireslymusic_nhom2_cp17310.Activity.DsBaihatTrendingActivity;
 import com.example.fireslymusic_nhom2_cp17310.Activity.DsEveyDayActivity;
 import com.example.fireslymusic_nhom2_cp17310.Adapter.DSsingerAdapter;
@@ -27,7 +30,20 @@ import com.example.fireslymusic_nhom2_cp17310.DTO.Singer;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.DTO.TheLoai;
 import com.example.fireslymusic_nhom2_cp17310.R;
+import com.example.fireslymusic_nhom2_cp17310.databinding.ActivityMainBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +58,12 @@ public class HomeFragment extends Fragment {
     TextView txt_tatca, txt_moingay;
     Animation animation;
 
+    ArrayList<Song> songlist;
+    ArrayList<Everyday> listMoiNgay;
+    Handler mainHandel = new Handler();
+    Handler mainHandel2 = new Handler();
+    ProgressDialog progressDialog;
+    ProgressDialog progressDialog2;
     @SuppressLint({"MissingInflatedId", "ResourceType"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,18 +72,22 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         // Xử lí code list bài hát trending hiển thị lên rcv
         rcv_baihattrending = view.findViewById(R.id.rcv_songtrending);
-        adapter = new SongAdapter(getContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
-        rcv_baihattrending.setLayoutManager(manager);
-        adapter.setData(listSongTrending());
-        rcv_baihattrending.setAdapter(adapter);
+        txt_moingay = view.findViewById(R.id.txt_moingay);
+        rcv_every = view.findViewById(R.id.rcv_every);
+        initializeSongList();
+        new fetchData().start();
+
+        nhacmoi();
+        new nhacmoiData().start();
+
         txt_tatca = view.findViewById(R.id.txt_tatca);
         txt_tatca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), DsBaihatTrendingActivity.class));
+                clickBaiHatTD(songlist);
             }
         });
+
         // Xử lí code list ca sĩ hiển thị lên rcv
         rcv_singer = view.findViewById(R.id.rcv_singer);
         dSsingerAdapter = new DSsingerAdapter(getContext());
@@ -79,21 +105,10 @@ public class HomeFragment extends Fragment {
         rcv_theloai.setLayoutManager(manager2);
         theLoaiAdapter.setData(listTheLoai());
         rcv_theloai.setAdapter(theLoaiAdapter);
-
-        //xử lí code list nhạc mới mỗi ngày
-        rcv_every = view.findViewById(R.id.rcv_every);
-        everydayAdapter = new EverydayAdapter(getContext());
-        LinearLayoutManager manager3 = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
-        rcv_every.setLayoutManager(manager3);
-        everydayAdapter.setData(listMoiNgay());
-        rcv_every.setAdapter(everydayAdapter);
-        animation = AnimationUtils.loadAnimation(getContext(), R.anim.dis_cd);
-        txt_moingay = view.findViewById(R.id.txt_moingay);
         txt_moingay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent im = new Intent(getContext(), DsEveyDayActivity.class);
-                startActivity(im);
+                clickBaiHatMoi(listMoiNgay);
             }
         });
 
@@ -101,57 +116,174 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
+    private void clickBaiHatMoi(List<Everyday> moi1){
+        Intent intent = new Intent(getContext(), DsEveyDayActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("moi", (Serializable) moi1);
+        intent.putExtras(bundle);
+        getContext().startActivity(intent);
+    }
+    private void clickBaiHatTD(List<Song> song1){
+        Intent intent = new Intent(getContext(), DsBaihatTrendingActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", (Serializable) song1);
+        intent.putExtras(bundle);
+        getContext().startActivity(intent);
 
-    private List<Song> listSongTrending() {
-        List<Song> list = new ArrayList<>();
 
-        list.add(new Song(1,"Cuối Cùng Thì",R.drawable.cuoicungthi,"Jack",8));
-        list.add(new Song(2,"Beautiful Monster",R.drawable.beautifumonster,"Binz & Soobin",5));
-        list.add(new Song(3,"Cô Đơn Trên Sofa",R.drawable.codontrensofa,"Hồ Ngọc Hà",9));
-        list.add(new Song(4,"Có Chơi Có chịu",R.drawable.cochoicochiu,"Karik",1));
-        list.add(new Song(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Bảo Anh",6));
-        list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi",7));
+    }
+    private void initializeSongList(){
+        songlist = new ArrayList<>();
+        adapter = new SongAdapter(getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        rcv_baihattrending.setLayoutManager(manager);
+        adapter.setData(songlist);
+        rcv_baihattrending.setAdapter(adapter);
+    }
+    class fetchData extends Thread{
+        String data="";
+        @Override
+        public void run() {
+            super.run();
 
-        return list;
+            mainHandel.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setMessage("lấy dữ liệu");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                }
+            });
+            try {
+                URL url = new URL("http://638b3fb17220b45d228b915b.mockapi.io/song");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = bufferedReader.readLine()) != null){
+                    data = data+line;
+                }
+                if (!data.isEmpty()){
+                    JSONArray songs = new JSONArray(data);
+                    songlist.clear();
+                    for (int i = 0;i< songs.length();i++){
+                        JSONObject songss = songs.getJSONObject(i);
+                        Song song = new Song();
+                        song.setId(songss.getInt("id"));
+                        song.setId_ns(songss.getInt("id_ns"));
+                        song.setName(songss.getString("name"));
+                        song.setSinger(songss.getString("singer"));
+                        song.setImgsong(songss.getString("imgsong"));
+                        song.setFilesong(songss.getString("filesong"));
+                        songlist.add(song);
+                    }
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mainHandel.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+    private void nhacmoi(){
+        listMoiNgay = new ArrayList<>();
+        everydayAdapter = new EverydayAdapter(getContext());
+        LinearLayoutManager manager5 = new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false);
+        rcv_every.setLayoutManager(manager5);
+        everydayAdapter.setData(listMoiNgay);
+        rcv_every.setAdapter(everydayAdapter);
+    }
+    class nhacmoiData extends Thread{
+        String data="";
+        @Override
+        public void run() {
+            super.run();
+
+            mainHandel2.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog2 = new ProgressDialog(getContext());
+                    progressDialog2.setMessage("lấy dữ liệu");
+                    progressDialog2.setCancelable(false);
+                    progressDialog2.show();
+                }
+            });
+            try {
+                URL url = new URL("http://638de830aefc455fb2af375b.mockapi.io/nhacmoi/everyday");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = bufferedReader.readLine()) != null){
+                    data = data+line;
+                }
+                if (!data.isEmpty()){
+                    JSONArray songs = new JSONArray(data);
+                    songlist.clear();
+                    for (int i = 0;i< songs.length();i++){
+                        JSONObject songss = songs.getJSONObject(i);
+                        Everyday moi = new Everyday();
+                        moi.setId(songss.getInt("id"));
+                        moi.setId_ns(songss.getInt("id_ns"));
+                        moi.setName(songss.getString("name"));
+                        moi.setSinger(songss.getString("singer"));
+                        moi.setImgsong(songss.getString("imgsong"));
+                        moi.setFilesong(songss.getString("filesong"));
+                        listMoiNgay.add(moi);
+                    }
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mainHandel2.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (progressDialog2.isShowing()){
+                        progressDialog2.dismiss();
+                    }
+                    everydayAdapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
     private List<Singer> listSinger(){
         List<Singer> list = new ArrayList<>();
-        list.add(new Singer("Karik",R.drawable.karik,1));
-        list.add(new Singer("Sơn Tùng MTP",R.drawable.sontung,2));
-        list.add(new Singer("Mono",R.drawable.mono,3));
-        list.add(new Singer("Charlie puth",R.drawable.img_1,4));
-        list.add(new Singer("Binz",R.drawable.binz,5));
-        list.add(new Singer("Bảo Anh",R.drawable.baoanh,6));
-        list.add(new Singer("Hoàng Yến Chibi",R.drawable.hoangyenchibi,7));
-        list.add(new Singer("Jack",R.drawable.jack,8));
-        list.add(new Singer("Hồ Ngọc Hà",R.drawable.hongocha,9));
-
-
+        list.add(new Singer("KARIK",R.drawable.karik,1));
+        list.add(new Singer("SƠN TÙNG MTP",R.drawable.sontung,2));
+        list.add(new Singer("MONO",R.drawable.mono,3));
+        list.add(new Singer("CHARLIE PUTH",R.drawable.img_1,4));
+        list.add(new Singer("BINZ",R.drawable.binz,5));
+        list.add(new Singer("BẢO ANH",R.drawable.baoanh,6));
+        list.add(new Singer("HOÀNG THÙY LINH",R.drawable.hoangthuylinh,7));
+        list.add(new Singer("JACK",R.drawable.jack,8));
+        list.add(new Singer("TĂNG PHÚC",R.drawable.tangphuc,9));
         return list;
-
     }
     private List<TheLoai> listTheLoai() {
         List<TheLoai> listtl = new ArrayList<>();
-        listtl.add(new TheLoai(1,"Pop",R.drawable.img_6));
-        listtl.add(new TheLoai(2,"Ballad",R.drawable.img_7));
-        listtl.add(new TheLoai(3,"NhạcTrẻ",R.drawable.img_5));
-        listtl.add(new TheLoai(4,"Rap",R.drawable.img_2));
-        listtl.add(new TheLoai(5,"Us-Uk",R.drawable.img_1));
-
+        listtl.add(new TheLoai(1,"POP",R.drawable.img_6));
+        listtl.add(new TheLoai(2,"BALLAD",R.drawable.img_7));
+        listtl.add(new TheLoai(3,"NHẠC TRẺ",R.drawable.img_5));
+        listtl.add(new TheLoai(4,"RAP",R.drawable.img_2));
+        listtl.add(new TheLoai(5,"US-UK",R.drawable.img_1));
         return listtl;
     }
-    private List<Everyday> listMoiNgay() {
-        List<Everyday> listt1 = new ArrayList<>();
-        listt1.add(new Everyday(1,"See you again",R.drawable.see_you));
-        listt1.add(new Everyday(2,"Sao cũng được",R.drawable.sao_cung_dc));
-        listt1.add(new Everyday(3,"Tòng Phu",R.drawable.tong_phu));
-        listt1.add(new Everyday(4,"Cưới không chốt nha",R.drawable.cuoi_hong));
-        listt1.add(new Everyday(5,"Pháo Hồng",R.drawable.phao_hong));
-        listt1.add(new Everyday(6,"Waiting for you",R.drawable.wai_ting));
 
-
-
-        return listt1;
-    }
 
 }

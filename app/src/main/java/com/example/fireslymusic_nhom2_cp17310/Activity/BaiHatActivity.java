@@ -3,8 +3,10 @@ package com.example.fireslymusic_nhom2_cp17310.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,10 +15,13 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Everyday;
+import com.example.fireslymusic_nhom2_cp17310.DTO.Search;
 import com.example.fireslymusic_nhom2_cp17310.DTO.Song;
 import com.example.fireslymusic_nhom2_cp17310.R;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +31,8 @@ public class BaiHatActivity extends AppCompatActivity {
     SeekBar tgianchay;
     ImageButton btnPrevious,btnPlay,btnNext, btnrandom, btnrepost;
     ImageView cd;
+    List<Song> listv1 = new ArrayList<>();
     List<Song> list;
-    List<Everyday>listt;
     MediaPlayer mediaPlayer;
     int position ;
     Animation animation;
@@ -37,7 +42,14 @@ public class BaiHatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bai_hat);
         Bundle bundle = getIntent().getExtras();
-        position = (int) bundle.get("vitri");
+        if (bundle==null){
+            return;
+        }
+        listv1 = (List<Song>) bundle.getSerializable("list");
+        Log.d("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz ", "onCreate: "+listv1.size());
+        position = bundle.getInt("index");
+        list = new ArrayList<>();
+        list.addAll(listv1);
         //ánh xạ view
         txt_tenbaihet = findViewById(R.id.txt_tenbaihat);
         txt_tgbatdau = findViewById(R.id.txt_tgbatdau);
@@ -51,29 +63,14 @@ public class BaiHatActivity extends AppCompatActivity {
         btnrepost = findViewById(R.id.btn_reptot);
         cd = findViewById(R.id.cd);
         // tạo danh sách bài hát
-        list = new ArrayList<>();
-        list.add(new Song(1,"Cuối Cùng Thì",R.drawable.cuoicungthi,"Jack",R.raw.cuoicungthi));
-        list.add(new Song(2,"Beautiful Monster",R.drawable.beautifumonster,"Binz & Soobin",R.raw.beatifullmonster));
-        list.add(new Song(3,"Cô Đơn Trên Sofa",R.drawable.codontrensofa,"Hồ Ngọc Hà",R.raw.codontrensofa));
-        list.add(new Song(4,"Có Chơi Có chịu",R.drawable.cochoicochiu,"Karik",R.raw.con_mua_cuoi));
-        list.add(new Song(5,"Từng Là Của Nhau",R.drawable.tunglacuanhau,"Phương Anh",R.raw.loi_xin_loi_vung_ve));
-        list.add(new Song(6,"Ừ! Em Xin Lỗi",R.drawable.uemxinloi,"Hoàng Yến ChiBi",R.raw.uemxinloi));
-
-        list.add(new Song(7,"See you again",R.drawable.see_you,"Wiz Khalifa",R.raw.see_you_agan));
-        list.add(new Song(8,"Sao cũng được",R.drawable.sao_cung_dc,"Thành Đạt",R.raw.ngannam));
-        list.add(new Song(9,"Tòng Phu",R.drawable.tong_phu,"KEYO",R.raw.tongphu));
-        list.add(new Song(10,"Cưới không chốt nha",R.drawable.cuoi_hong,"Út Nhị",R.raw.cuoikhong));
-        list.add(new Song(11,"Pháo Hồng",R.drawable.phao_hong,"Đạt Long Vinh",R.raw.phaohong));
-        list.add(new Song(12,"Waiting for you",R.drawable.wai_ting,"MONO",R.raw.waiting_for_you));
-        list.add(new Song(13,"A y mạc",R.drawable.aymac1,"阿衣莫",R.raw.aymac));
-        list.add(new Song(14,"Thuyền quyên",R.drawable.thuyenquyen1,"Diệu kiên",R.raw.thuyenquyenmusic));
-        list.add(new Song(15,"Đốt lửa",R.drawable.dotlua,"Thế Hưng",R.raw.dotluamusic));
-
-
+        Log.d("zzzzzzzzzzzz", list.get(position).getName());
         //khởi tạo
-        listt = new ArrayList<>();
-        listt.add(new Everyday(1,"See you agani","Charlie puth",R.drawable.see_you,R.raw.see_you_agan));
-        khoitao();
+
+        try {
+            khoitao();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         animation = AnimationUtils.loadAnimation(this, R.anim.dis_cd);
         //gán sự kiện cho các nút bấm
 
@@ -107,7 +104,11 @@ public class BaiHatActivity extends AppCompatActivity {
                 if (mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
                 }
-                khoitao();
+                try {
+                    khoitao();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mediaPlayer.start();
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 SetTimeToal();
@@ -125,7 +126,11 @@ public class BaiHatActivity extends AppCompatActivity {
                 if (mediaPlayer.isPlaying()){
                     mediaPlayer.stop();
                 }
-                khoitao();
+                try {
+                    khoitao();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 mediaPlayer.start();
                 btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                 SetTimeToal();
@@ -186,11 +191,15 @@ public class BaiHatActivity extends AppCompatActivity {
 
 
     }
-    public void khoitao(){
-        mediaPlayer = MediaPlayer.create(this,list.get(position).getFile());
-        txt_tenbaihet.setText(list.get(position).getSong_name());
+    public void khoitao() throws IOException {
+        Log.d("aaaaaaaaaa", list.get(position).getName());
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(list.get(position).getFilesong());
+        mediaPlayer.prepare();
+        txt_tenbaihet.setText(list.get(position).getName());
         txt_tencasi.setText(list.get(position).getSinger());
-        cd.setImageResource(list.get(position).getImg());
+        Glide.with(this).load(list.get(position).getImgsong()).into(cd);
+
     }
     public void SetTimeToal(){
         SimpleDateFormat dinhgio = new SimpleDateFormat("mm:ss");
@@ -218,7 +227,11 @@ public class BaiHatActivity extends AppCompatActivity {
                         if (mediaPlayer.isPlaying()){
                             mediaPlayer.stop();
                         }
-                        khoitao();
+                        try {
+                            khoitao();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         mediaPlayer.start();
                         btnPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
                         SetTimeToal();
@@ -228,5 +241,12 @@ public class BaiHatActivity extends AppCompatActivity {
                 handler.postDelayed(this, 500);
             }
         }, 100);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
     }
 }

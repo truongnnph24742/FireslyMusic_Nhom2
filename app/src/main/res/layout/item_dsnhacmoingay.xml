@@ -10,7 +10,7 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="10dp">
         <ImageView
-            android:id="@+id/img_baihattd"
+            android:id="@+id/img_baihatmoi"
             android:layout_width="70dp"
             android:layout_height="70dp"
 
@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         >
         <TextView
-            android:id="@+id/tv_tenbaihattd"
+            android:id="@+id/tv_baihatmoi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên bài hát"
@@ -37,7 +37,7 @@
             android:padding="10dp"
             />
         <TextView
-            android:id="@+id/tv_tencasitd"
+            android:id="@+id/tv_tencasimoi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ca sĩ"
@@ -48,7 +48,7 @@
 
     </LinearLayout>
     <ImageView
-        android:id="@+id/yeuthich"
+        android:id="@+id/yeuthichmoi"
         android:layout_marginTop="30dp"
         android:layout_width="30dp"
         android:layout_height="30dp"

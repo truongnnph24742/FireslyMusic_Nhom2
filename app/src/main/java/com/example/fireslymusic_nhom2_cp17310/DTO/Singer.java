@@ -1,6 +1,8 @@
 package com.example.fireslymusic_nhom2_cp17310.DTO;
 
-public class Singer {
+import java.io.Serializable;
+
+public class Singer implements Serializable {
     private String singer_name;
     private int img_singer;
     private int id;
