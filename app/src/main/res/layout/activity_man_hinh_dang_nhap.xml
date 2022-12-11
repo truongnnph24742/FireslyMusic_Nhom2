@@ -35,7 +35,7 @@
         android:hint="user name"
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:text="truong123"
+        android:text="admin1"
         />
     <EditText
         android:id="@+id/ed_pass"

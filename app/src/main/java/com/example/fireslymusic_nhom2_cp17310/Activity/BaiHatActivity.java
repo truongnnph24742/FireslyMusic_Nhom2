@@ -137,38 +137,7 @@ public class BaiHatActivity extends AppCompatActivity {
                 capNhapthoigian();
             }
         });
-        btnrandom.setOnClickListener(view -> {
-            if (!checkrandom){
-                if (repeat){
-                    repeat = false;
-                    btnrandom.setImageResource(R.drawable.ic_baseline_shuffle_24);
-                    btnrandom.setImageResource(R.drawable.ic_baseline_repeat_24);
-                }else {
-                    btnrandom.setImageResource(R.drawable.ic_baseline_shuffle_24);
-                }
-                checkrandom = true;
-            }else {
-                btnrandom.setImageResource(R.drawable.ic_baseline_shuffle_24);
-                checkrandom = false;
-            }
 
-        });
-        btnrepost.setOnClickListener(view -> {
-            if (!repeat){
-                if (checkrandom){
-                    checkrandom = false;
-                    btnrepost.setImageResource(R.drawable.ic_baseline_repeat_24);
-                    btnrepost.setImageResource(R.drawable.ic_baseline_shuffle_24);
-                }else {
-                    btnrepost.setImageResource(R.drawable.ic_baseline_repeat_24);
-                }
-                repeat = true;
-            }else {
-                btnrepost.setImageResource(R.drawable.ic_baseline_repeat_24);
-                repeat = false;
-            }
-
-        });
         tgianchay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

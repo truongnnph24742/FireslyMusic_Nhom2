@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.fireslymusic_nhom2_cp17310.DTO.DK;
 import com.example.fireslymusic_nhom2_cp17310.Mydbhelper.Data;
@@ -47,5 +48,20 @@ public class DAO_TK {
             return false;
         }
         return true;
+    }
+    public boolean capNhatMatKhau(String matk, String oldPass, String newPass){
+        sql = this.data.getWritableDatabase();
+        Cursor cursor = sql.rawQuery("SELECT * FROM TAIKHOAN WHERE matk = ? and matkhau = ?", new String[]{matk,oldPass});
+        Log.d("TAG", "capNhatMatKhau: "+""+cursor );
+        if (cursor.getCount() > 0 ){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("matkhau", newPass);
+            long check = sql.update("TAIKHOAN", contentValues, "matk = ?", new String[]{matk});
+            if (check == -1){
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 }
