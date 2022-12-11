@@ -25,14 +25,9 @@ public class LiberyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_libery, container, false);
-        playlist=view.findViewById(R.id.ds_playlist);
+
         favourite=view.findViewById(R.id.ds_favourite);
-        playlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), DsPlaylistActivity.class));
-            }
-        });
+
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
