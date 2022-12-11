@@ -19,8 +19,8 @@ public class Data extends SQLiteOpenHelper {
         db.execSQL ( " INSERT INTO TAIKHOAN VALUES  ( 'admin' , 'abc123' , 'a1234567' ) " ) ;
         String NgheSi = "CREATE TABLE NGHESI(manghesi integer primary key autoincrement , tennghesi text ,anhnghesi integer )";
         db.execSQL(NgheSi);
-        String BaiHat = "CREATE TABLE BAIHAT(mabaihat integer primary key autoincrement , tenbaihat text , anhbaihat integer , filenhac text , manghesi references NGHESI (manghesi))";
-        db.execSQL(BaiHat);
+        String YeuThich = "CREATE TABLE YEUTHICH(id integer  ,id_ns integer, name text,singer text , anhbaihat text , filesong text)";
+        db.execSQL(YeuThich);
 
     }
 
